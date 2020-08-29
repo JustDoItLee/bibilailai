@@ -5,6 +5,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Input: [1,2,3]
+ * Output:
+ * [
+ *   [1,2,3],
+ *   [1,3,2],
+ *   [2,1,3],
+ *   [2,3,1],
+ *   [3,1,2],
+ *   [3,2,1]
+ * ]
+ *
  * for 选择 in 选择列表:
  * # 做选择
  * 将该选择从选择列表移除
