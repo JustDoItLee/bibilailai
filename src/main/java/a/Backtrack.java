@@ -36,7 +36,7 @@ public class Backtrack {
         return res;
     }
 
-    // 路径：记录在 track 中
+// 路径：记录在 track 中
 // 选择列表：nums 中不存在于 track 的那些元素
 // 结束条件：nums 中的元素全都在 track 中出现
     static void backtrack(int[] nums, LinkedList<Integer> track) {
