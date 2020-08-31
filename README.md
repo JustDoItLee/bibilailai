@@ -20,7 +20,7 @@ tips:
 
 ```
 result = []
-def backtrack(路径, 选择列表):
+void backtrack(路径, 选择列表):
     if 满足结束条件:
         result.add(路径)
         return
