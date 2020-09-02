@@ -33,7 +33,6 @@ public class BinarySearch {
      * 所以决定了我们的「搜索区间」是 [left, right]
      * 所以决定了 while (left <= right)
      * 同时也决定了 left = mid + 1 和 right = mid - 1
-     * <p>
      * 因为我们需找到 target 的最左侧索引
      * 所以当 nums[mid] == target 时不要立即返回
      * 而要收紧右侧边界以锁定左侧边界
@@ -65,7 +64,6 @@ public class BinarySearch {
      * 所以决定了我们的「搜索区间」是 [left, right]
      * 所以决定了 while (left <= right)
      * 同时也决定了 left = mid + 1 和 right = mid - 1
-     * <p>
      * 因为我们需找到 target 的最右侧索引
      * 所以当 nums[mid] == target 时不要立即返回
      * 而要收紧左侧边界以锁定右侧边界
