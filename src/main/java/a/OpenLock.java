@@ -116,4 +116,10 @@ public class OpenLock {
         }
         return -1;
     }
+
+    public static void main(String[] args) {
+        String[] deadends = new String[]{"0201", "0101", "0102", "1212", "2002"};
+        String target = "0202";
+        System.out.println(new OpenLock().openLock(deadends, target));
+    }
 }
