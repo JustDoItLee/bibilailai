@@ -19,8 +19,8 @@ package a;
  * k = infinity
  * dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
  * dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
- *             = max(dp[i-1][k][1], dp[i-1][k][0] - prices[i])
- *
+ * = max(dp[i-1][k][1], dp[i-1][k][0] - prices[i])
+ * <p>
  * 发现数组中的 k 已经不会改变了，也就是说不需要记录 k 这个状态了：
  * dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
  * dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i])
@@ -28,9 +28,7 @@ package a;
 public class BestTimeToBuyAndSellStockII {
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        if (n == 0) {
-            return 0;
-        }
+        if (n == 0) return 0;
         int dp_i_0 = 0, dp_i_1 = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             int temp = dp_i_0;
@@ -41,6 +39,6 @@ public class BestTimeToBuyAndSellStockII {
     }
 
     public static void main(String[] args) {
-        System.out.println(new BestTimeToBuyAndSellStockII().maxProfit(new int[]{7, 1, 5, 3, 6, 4}));
+        System.out.println(new BestTimeToBuyAndSellStockII().maxProfit(new int[]{3,3,5,0,0,3,1,4}));
     }
 }
