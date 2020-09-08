@@ -32,7 +32,9 @@ public class BestTimeToBuyAndSellStockII {
         int dp_i_0 = 0, dp_i_1 = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             int temp = dp_i_0;
+            //持有现金
             dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
+            //持有股票
             dp_i_1 = Math.max(dp_i_1, temp - prices[i]);
         }
         return dp_i_0;
