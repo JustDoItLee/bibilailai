@@ -48,7 +48,7 @@ public class SuperEggDrop {
     Map<String, Integer> map = new HashMap<>();
 
     public int superEggDrop(int K, int N) {
-        return dp2(K, N);
+        return dp4(K, N);
     }
 
     int dp(int K, int N) {
@@ -72,7 +72,7 @@ public class SuperEggDrop {
     }
 
     public int dp2(int K, int N) {
-        if (!map.containsKey(K+"*"+N)) {
+        if (!map.containsKey(K + "*" + N)) {
             int ans;
             if (N == 0)
                 ans = 0;
@@ -97,10 +97,10 @@ public class SuperEggDrop {
                         Math.max(dp(K - 1, hi - 1), dp(K, N - hi)));
             }
 
-            map.put(K+"*"+N, ans);
+            map.put(K + "*" + N, ans);
         }
 
-        return map.get(K+"*"+N);
+        return map.get(K + "*" + N);
     }
 
     public int dp3(int K, int N) {
@@ -122,6 +122,22 @@ public class SuperEggDrop {
             }
         }
         return ans;
+    }
+
+    public int dp4(int K, int N) {
+        // m 最多不会超过 N 次（线性扫描）
+        int[][] dp = new int[K + 1][N + 1];
+        // base case:
+        // dp[0][..] = 0
+        // dp[..][0] = 0
+        // Java 默认初始化数组都为 0
+        int m = 0;
+        while (dp[K][m] < N) {
+            m++;
+            for (int k = 1; k <= K; k++)
+                dp[k][m] = dp[k][m - 1] + dp[k - 1][m - 1] + 1;
+        }
+        return m;
     }
 
     public static void main(String[] args) {
