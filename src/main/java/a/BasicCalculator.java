@@ -22,68 +22,38 @@ import java.util.Stack;
  */
 public class BasicCalculator {
     public int calculate(String s) {
-        Stack<Integer> stack = new Stack<Integer>();
-        int operand = 0;
-        int result = 0; // For the on-going result
-        int sign = 1;  // 1 means positive, -1 means negative
-
+        Stack<Integer> stk = new Stack<Integer>();
+        // 记录算式中的数字
+        int num = 0;
+        // 记录 num 前的符号，初始化为 +
+        char sign = '+';
         for (int i = 0; i < s.length(); i++) {
-
-            char ch = s.charAt(i);
-            if (Character.isDigit(ch)) {
-
-                // Forming operand, since it could be more than one digit
-                operand = 10 * operand + (int) (ch - '0');
-
-            } else if (ch == '+') {
-
-                // Evaluate the expression to the left,
-                // with result, sign, operand
-                result += sign * operand;
-
-                // Save the recently encountered '+' sign
-                sign = 1;
-
-                // Reset operand
-                operand = 0;
-
-            } else if (ch == '-') {
-
-                result += sign * operand;
-                sign = -1;
-                operand = 0;
-
-            } else if (ch == '(') {
-
-                // Push the result and sign on to the stack, for later
-                // We push the result first, then sign
-                stack.push(result);
-                stack.push(sign);
-
-                // Reset operand and result, as if new evaluation begins for the new sub-expression
-                sign = 1;
-                result = 0;
-
-            } else if (ch == ')') {
-
-                // Evaluate the expression to the left
-                // with result, sign and operand
-                result += sign * operand;
-
-                // ')' marks end of expression within a set of parenthesis
-                // Its result is multiplied with sign on top of stack
-                // as stack.pop() is the sign before the parenthesis
-                result *= stack.pop();
-
-                // Then add to the next operand on the top.
-                // as stack.pop() is the result calculated before this parenthesis
-                // (operand on stack) + (sign on stack * (result from parenthesis))
-                result += stack.pop();
-
-                // Reset the operand
-                operand = 0;
+            char c = s.charAt(i);
+            // 如果是数字，连续读取到 num
+            if (Character.isDigit(c))
+                num = 10 * num + (c - '0');
+            // 如果不是数字，就是遇到了下一个符号，
+            // 之前的数字和符号就要存进栈中
+            if (!Character.isDigit(c) || i == s.length() - 1) {
+                switch (sign) {
+                    case '+':
+                        stk.push(num);
+                        break;
+                    case '-':
+                        stk.push(-num);
+                        break;
+                }
+                // 更新符号为当前符号，数字清零
+                sign = c;
+                num = 0;
             }
         }
-        return result + (sign * operand);
+        // 将栈中所有结果求和就是答案
+        int res = 0;
+        while (!stk.empty()) {
+            res += stk.pop();
+            stk.pop();
+        }
+        return res;
     }
 }
