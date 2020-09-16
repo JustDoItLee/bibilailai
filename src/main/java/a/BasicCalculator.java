@@ -34,7 +34,7 @@ public class BasicCalculator {
                 num = 10 * num + (c - '0');
             // 如果不是数字，就是遇到了下一个符号，
             // 之前的数字和符号就要存进栈中
-            if (!Character.isDigit(c) || i == s.length() - 1) {
+            if (!Character.isDigit(c) && c != ' '|| i == s.length() - 1) {
                 switch (sign) {
                     case '+':
                         stk.push(num);
@@ -52,8 +52,11 @@ public class BasicCalculator {
         int res = 0;
         while (!stk.empty()) {
             res += stk.pop();
-            stk.pop();
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new BasicCalculator().calculate("1 + 1"));
     }
 }
