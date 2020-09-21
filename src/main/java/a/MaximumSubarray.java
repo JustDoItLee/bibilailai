@@ -30,7 +30,6 @@ public class MaximumSubarray {
     public int maxSubArray2(int[] nums) {
         int n = nums.length;
         if (n == 0) return 0;
-        if (n == 1) return nums[0];
         int dp_i_1 = nums[0];
         int dp_i = 0;
         int res = dp_i_1;
@@ -44,6 +43,6 @@ public class MaximumSubarray {
     }
 
     public static void main(String[] args) {
-        System.out.println(new MaximumSubarray().maxSubArray2(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+        System.out.println(new MaximumSubarray().maxSubArray2(new int[]{-3,4,-1,2}));
     }
 }
