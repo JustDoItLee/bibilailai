@@ -27,34 +27,33 @@ import java.util.*;
  * 解释: 数组不能分割成两个元素和相等的子集.
  */
 public class Solution {
-    public boolean canPartition(int[] nums) {
-        int sum = 0;
-        for (int num : nums) sum += num;
-        // 和为奇数时，不可能划分成两个和相等的集合
-        if (sum % 2 != 0) return false;
-        int n = nums.length;
-        sum = sum / 2;
-        boolean[][] dp = new boolean[n + 1][sum + 1];
-        Arrays.fill(dp, false);
-        // base case
-        for (int i = 0; i <= n; i++)
-            dp[i][0] = true;
+    HashMap<String, Integer> map = new HashMap<>();
 
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= sum; j++) {
-                if (j - nums[i - 1] < 0) {
-                    // 背包容量不足，不能装入第 i 个物品
-                    dp[i][j] = dp[i - 1][j];
-                } else {
-                    // 装入或不装入背包
-                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];
-                }
-            }
+    public int minDistance(String word1, String word2) {
+        return dp(word1, word2, word1.length() - 1, word2.length() - 1);
+    }
+
+    int dp(String s1, String s2, int i, int j) {
+        if (map.containsKey(i + "*" + j)) {
+            return map.get(i + "*" + j);
         }
-        return dp[n][sum];
+        // base case
+        if (i == -1) return j + 1;
+        if (j == -1) return i + 1;
+
+        if (s1.charAt(i) == s2.charAt(j)) {
+            map.put(i + "*" + j, dp(s1, s2, i - 1, j - 1));  // 啥都不做
+        } else {
+            map.put(i + "*" + j, Math.min(
+                    Math.min(dp(s1, s2, i, j - 1) + 1,    // 插入
+                            dp(s1, s2, i - 1, j) + 1),    // 删除
+                    dp(s1, s2, i - 1, j - 1) + 1 // 替换
+            ));
+        }
+        return map.get(i + "*" + j);
     }
 
     public static void main(String[] args) {
-
+        System.out.println(new EditDistance().minDistance("intention", "execution"));
     }
 }
