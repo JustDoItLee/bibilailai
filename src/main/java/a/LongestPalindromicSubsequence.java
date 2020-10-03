@@ -28,7 +28,7 @@ package a;
  * 提示：
  * <p>
  * 1 <= s.length <= 1000
- * s 只包含小写英文字母
+ *  * s 只包含小写英文字母
  */
 public class LongestPalindromicSubsequence {
     public int longestPalindromeSubseq(String s) {
@@ -54,6 +54,6 @@ public class LongestPalindromicSubsequence {
     }
 
     public static void main(String[] args) {
-        System.out.println(new LongestPalindromicSubsequence().longestPalindromeSubseq("babbab"));
+        System.out.println(new LongestPalindromicSubsequence().longestPalindromeSubseq("bbbaba"));
     }
 }
