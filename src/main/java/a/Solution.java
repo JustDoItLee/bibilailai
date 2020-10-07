@@ -27,33 +27,21 @@ import java.util.*;
  * 解释: 数组不能分割成两个元素和相等的子集.
  */
 public class Solution {
-    HashMap<String, Integer> map = new HashMap<>();
-
-    public int minDistance(String word1, String word2) {
-        return dp(word1, word2, word1.length() - 1, word2.length() - 1);
-    }
-
-    int dp(String s1, String s2, int i, int j) {
-        if (map.containsKey(i + "*" + j)) {
-            return map.get(i + "*" + j);
+    boolean stoneGame(int[] piles) {
+        int length = piles.length;
+        int[][] dp = new int[length][length];
+        for (int i = 0; i < length; i++) {
+            dp[i][i] = piles[i];
         }
-        // base case
-        if (i == -1) return j + 1;
-        if (j == -1) return i + 1;
-
-        if (s1.charAt(i) == s2.charAt(j)) {
-            map.put(i + "*" + j, dp(s1, s2, i - 1, j - 1));  // 啥都不做
-        } else {
-            map.put(i + "*" + j, Math.min(
-                    Math.min(dp(s1, s2, i, j - 1) + 1,    // 插入
-                            dp(s1, s2, i - 1, j) + 1),    // 删除
-                    dp(s1, s2, i - 1, j - 1) + 1 // 替换
-            ));
+        for (int i = length - 2; i >= 0; i--) {
+            for (int j = i + 1; j < length; j++) {
+                dp[i][j] = Math.max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
+            }
         }
-        return map.get(i + "*" + j);
+        return dp[0][length - 1] > 0;
     }
 
     public static void main(String[] args) {
-        System.out.println(new EditDistance().minDistance("intention", "execution"));
+        System.out.println(new Solution().stoneGame(new int[]{5,3,4,5}));
     }
 }
